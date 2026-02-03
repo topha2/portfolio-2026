@@ -1,0 +1,56 @@
+
+/* Fade In Up Animation */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.reveal {
+    animation: fadeInUp 0.8s ease-out forwards;
+}
+
+/* Staggered Reveal for children */
+.reveal-stagger > * {
+    opacity: 0;
+    animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.reveal-stagger > *:nth-child(1) { animation-delay: 0.1s; }
+.reveal-stagger > *:nth-child(2) { animation-delay: 0.2s; }
+.reveal-stagger > *:nth-child(3) { animation-delay: 0.3s; }
+.reveal-stagger > *:nth-child(4) { animation-delay: 0.4s; }
+
+/* Pulse Glow */
+@keyframes pulseGlow {
+    0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
+    70% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+}
+
+.pulse-primary {
+    animation: pulseGlow 2s infinite;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: #0a1a14;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #12261f;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #10b981;
+}

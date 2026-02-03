@@ -1,0 +1,38 @@
+body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+section {
+    position: relative;
+}
+
+/* Glass effect refinement */
+.glass-card {
+    background: rgba(18, 38, 31, 0.45);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+}
+
+/* Fix for Safari backdrop-filter blur */
+@supports not (backdrop-filter: blur(16px)) {
+    .glass-card {
+        background: rgba(18, 38, 31, 0.95);
+    }
+}
+
+.line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+    -webkit-text-fill-color: white;
+    -webkit-box-shadow: 0 0 0px 1000px #0a1a14 inset;
+    transition: background-color 5000s ease-in-out 0s;
+}

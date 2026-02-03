@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mustaf Upziye | Software Developer Portfolio</title>
+    <meta name="description"
+        content="ICT Computer Science student and software developer specializing in building real-world functional systems.">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: 'var(--primary)',
+                        secondary: 'var(--secondary)',
+                        dark: 'var(--dark)',
+                        surface: 'var(--surface)',
+                        accent: 'var(--accent)',
+                        // Re-defining gray colors to use variables for theme adaptation
+                        gray: {
+                            50: 'var(--text-main)',
+                            100: 'var(--text-main)',
+                            200: 'var(--text-main)',
+                            300: 'var(--text-dim)',
+                            400: 'var(--text-dim)',
+                            500: 'var(--text-dim)',
+                            600: 'var(--text-dim)',
+                            700: 'var(--border-color)',
+                            800: 'var(--border-color)',
+                            900: 'var(--dark)',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        poppins: ['Poppins', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/animations.css">
+
+    <style>
+        :root {
+            /* Dark Theme (Default) */
+            --primary: #10b981;
+            --secondary: #059669;
+            --dark: #0a100d;
+            --surface: #121a16;
+            --accent: #34d399;
+            --text-main: #f3f4f6;
+            --text-dim: #9ca3af;
+            --border-color: rgba(255, 255, 255, 0.08);
+            --header-bg: rgba(10, 16, 13, 0.8);
+        }
+
+        .light {
+            /* Light Theme */
+            --primary: #059669;
+            --secondary: #047857;
+            --dark: #f8fafc;
+            --surface: #ffffff;
+            --accent: #10b981;
+            --text-main: #0f172a;
+            --text-dim: #475569;
+            --border-color: rgba(0, 0, 0, 0.08);
+            --header-bg: rgba(248, 250, 252, 0.8);
+        }
+
+        body {
+            background-color: var(--dark);
+            color: var(--text-main);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass-card {
+            background: var(--surface);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border-color);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        header.glass-card {
+            background: var(--header-bg);
+        }
+
+        input,
+        textarea {
+            background-color: var(--dark) !important;
+            color: var(--text-main) !important;
+            border: 1px solid var(--border-color) !important;
+            transition: all 0.3s ease;
+        }
+
+        input::placeholder,
+        textarea::placeholder {
+            color: var(--text-dim) !important;
+            opacity: 0.7;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--dark);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--border-color);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary);
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        .float-animation {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-link::after {
+            content: '';
+            display: block;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width .3s;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Modal Styles */
+        .modal-active {
+            overflow: hidden;
+        }
+
+        #project-modal {
+            transition: all 0.3s ease-out;
+        }
+
+        .modal-show {
+            opacity: 1 !important;
+            pointer-events: auto !important;
+        }
+
+        .modal-content-show {
+            transform: scale(1) !important;
+            opacity: 1 !important;
+        }
+
+        /* AI Thinking Bubble */
+        .thinking-msg {
+            font-style: italic;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .thinking-msg::after {
+            content: "...";
+            animation: typing 1s infinite;
+        }
+
+        @keyframes typing {
+            0% {
+                content: ".";
+            }
+
+            33% {
+                content: "..";
+            }
+
+            66% {
+                content: "...";
+            }
+        }
+    </style>
+    <!-- Supabase JS Library -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+
+<body class="bg-dark text-gray-100 font-sans selection:bg-primary selection:text-white">
+
+    <!-- Header / Navbar -->
+    <header class="fixed top-0 left-0 w-full z-50 glass-card">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <div
+                    class="w-10 h-10 bg-primary flex items-center justify-center rounded-lg shadow-lg shadow-primary/20">
+                    <span class="text-dark font-bold text-xl">&lt;/&gt;</span>
+                </div>
+                <span class="text-xl font-bold tracking-tight">Mustaf <span
+                        class="text-primary italic">Upziye</span></span>
+            </div>
+
+            <div class="hidden md:flex space-x-8 items-center">
+                <a href="#home" class="nav-link font-medium hover:text-primary transition">Home</a>
+                <a href="#about" class="nav-link font-medium hover:text-primary transition">About</a>
+                <a href="#skills" class="nav-link font-medium hover:text-primary transition">Skills</a>
+                <a href="#projects" class="nav-link font-medium hover:text-primary transition">Projects</a>
+                <a href="#community" class="nav-link font-medium hover:text-primary transition">Community</a>
+                <a href="#contact"
+                    class="px-5 py-2 bg-primary text-dark font-bold rounded-full hover:bg-accent transition shadow-lg shadow-primary/10">Hire
+                    Me</a>
+            </div>
+
+            <button class="md:hidden text-primary">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                </svg>
+            </button>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex items-center pt-20 px-6 relative overflow-hidden">
+        <!-- Background Orbs -->
+        <div class="absolute top-[20%] right-[-10%] w-[500px] h-[500px] bg-primary/10 rounded-full blur-[120px] -z-10">
+        </div>
+        <div
+            class="absolute bottom-[10%] left-[-10%] w-[400px] h-[400px] bg-secondary/10 rounded-full blur-[100px] -z-10">
+        </div>
+
+        <div class="container mx-auto flex flex-col md:flex-row items-center justify-between">
+            <div class="md:w-3/5 space-y-6">
+                <h4 class="text-primary font-semibold tracking-widest uppercase text-sm">Founder of GURRMAD CREATIVE
+                </h4>
+                <h1 class="text-5xl md:text-7xl font-bold leading-tight font-poppins">
+                    Building <span class="gradient-text">Premium</span> Digital Solutions
+                </h1>
+                <p class="text-lg text-gray-400 max-w-2xl leading-relaxed mt-4">
+                    Mustaf Upziye is a Senior Software Developer specializing in enterprise-grade systems.
+                    I transform complex business problems into elegant, scalable digital success stories.
+                </p>
+                <div class="flex flex-wrap gap-4 pt-4">
+                    <a href="#projects"
+                        class="px-8 py-4 bg-primary text-dark font-bold rounded-lg hover:bg-accent transition transform hover:-translate-y-1 shadow-xl shadow-primary/20">
+                        View Projects
+                    </a>
+                    <a href="#contact"
+                        class="px-8 py-4 border border-gray-700 bg-surface/50 font-bold rounded-lg hover:bg-surface transition transform hover:-translate-y-1">
+                        Hire Me
+                    </a>
+                </div>
+            </div>
+
+            <div class="md:w-2/5 mt-12 md:mt-0 relative flex justify-center">
+                <div class="w-80 h-80 bg-gradient-to-tr from-primary to-accent rounded-full p-1 float-animation">
+                    <div
+                        class="w-full h-full bg-dark rounded-full overflow-hidden flex items-center justify-center border-8 border-surface">
+                        <img src="assets/images/Hero Image.jpeg" alt="Profile"
+                            class="w-full h-full object-cover grayscale hover:grayscale-0 transition duration-500">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 bg-surface/30">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-4">About Me</h2>
+                <div class="w-20 h-1 bg-primary mx-auto"></div>
+            </div>
+
+            <div class="flex flex-col md:flex-row gap-12 items-center">
+                <div class="md:w-1/2">
+                    <div class="glass-card p-8 rounded-2xl space-y-4">
+                        <div class="flex items-center space-x-4 mb-6">
+                            <img src="https://ui-avatars.com/api/?name=Mustaf+Upziye&background=10b981&color=fff"
+                                class="w-16 h-16 rounded-full border-2 border-primary">
+                            <div>
+                                <h3 class="text-2xl font-bold">System Developer</h3>
+                                <p class="text-primary">ICT Computer Science Student</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-400 leading-relaxed">
+                            A results-driven System Developer with a proven track record of delivering enterprise-grade
+                            solutions.
+                            I bridge the gap between complex business logic and intuitive digital experiences, ensuring
+                            every
+                            system I build is a long-term asset for my clients.
+                        </p>
+                        <p class="text-gray-400 leading-relaxed italic">
+                            Waxaan ahay horumariye nidaamyada (System Developer) oo diiradda saara natiijada, lehna
+                            waayo-aragnimo
+                            xal u helidda ganacsiyada waaweyn. Waxaan isku xiraa baahiyaha ganacsiga iyo farsamada
+                            casriga ah
+                            si aan u dhisno nidaam faa'iido u ah mustaqbalka fog.
+                        </p>
+                        <p class="text-gray-400 leading-relaxed">
+                            My focus is on <strong>Return on Investment (ROI)</strong> and system stability. Whether
+                            it's
+                            automating a retail chain or designing a school management suite, I build for scale.
+                        </p>
+                        <div class="grid grid-cols-2 gap-4 pt-4">
+                            <div class="p-4 bg-dark/50 rounded-lg border border-gray-800">
+                                <span class="block text-primary text-xl font-bold">20+</span>
+                                <span class="text-xs text-gray-500 uppercase tracking-wider">Projects Completed</span>
+                            </div>
+                            <div class="p-4 bg-dark/50 rounded-lg border border-gray-800">
+                                <span class="block text-primary text-xl font-bold">4+</span>
+                                <span class="text-xs text-gray-500 uppercase tracking-wider">Happy Clients</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="md:w-1/2 grid grid-cols-1 gap-6">
+                    <div
+                        class="p-6 glass-card rounded-xl hover:border-primary/50 transition border border-gray-800 group">
+                        <div
+                            class="w-12 h-12 bg-primary/10 text-primary rounded-lg flex items-center justify-center mb-4 group-hover:bg-primary group-hover:text-dark transition">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                            </svg>
+                        </div>
+                        <h4 class="text-xl font-bold mb-2">Web Development</h4>
+                        <p class="text-gray-500 text-sm">Building responsive web systems with modern frameworks and
+                            robust backend logic.</p>
+                    </div>
+                    <div
+                        class="p-6 glass-card rounded-xl hover:border-primary/50 transition border border-gray-800 group">
+                        <div
+                            class="w-12 h-12 bg-primary/10 text-primary rounded-lg flex items-center justify-center mb-4 group-hover:bg-primary group-hover:text-dark transition">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7" />
+                            </svg>
+                        </div>
+                        <h4 class="text-xl font-bold mb-2">Desktop Applications</h4>
+                        <p class="text-gray-500 text-sm">C# WinForms and .NET development for powerful local business
+                            management tools.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-24">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-4">Mastery & Skills</h2>
+                <div class="w-20 h-1 bg-primary mx-auto"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Skill Group -->
+                <div class="space-y-6">
+                    <h3 class="text-xl font-bold text-primary flex items-center">
+                        <span class="mr-2">Frontend</span>
+                        <div class="flex-grow h-px bg-gray-800 ml-4"></div>
+                    </h3>
+                    <div class="space-y-4">
+                        <div class="skill-item">
+                            <div class="flex justify-between mb-1">
+                                <span>HTML/CSS</span>
+                                <span class="text-primary">95%</span>
+                            </div>
+                            <div class="w-full bg-gray-800 h-2 rounded-full overflow-hidden">
+                                <div class="bg-primary h-full w-[95%]"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="flex justify-between mb-1">
+                                <span>JavaScript</span>
+                                <span class="text-primary">85%</span>
+                            </div>
+                            <div class="w-full bg-gray-800 h-2 rounded-full overflow-hidden">
+                                <div class="bg-primary h-full w-[85%]"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="flex justify-between mb-1">
+                                <span>Tailwind CSS</span>
+                                <span class="text-primary">90%</span>
+                            </div>
+                            <div class="w-full bg-gray-800 h-2 rounded-full overflow-hidden">
+                                <div class="bg-primary h-full w-[90%]"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Skill Group -->
+                <div class="space-y-6">
+                    <h3 class="text-xl font-bold text-primary flex items-center">
+                        <span class="mr-2">Backend & Database</span>
+                        <div class="flex-grow h-px bg-gray-800 ml-4"></div>
+                    </h3>
+                    <div class="space-y-4">
+                        <div class="skill-item">
+                            <div class="flex justify-between mb-1">
+                                <span>PHP & MySQL</span>
+                                <span class="text-primary">80%</span>
+                            </div>
+                            <div class="w-full bg-gray-800 h-2 rounded-full overflow-hidden">
+                                <div class="bg-primary h-full w-[80%]"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="flex justify-between mb-1">
+                                <span>C# & SQL Server</span>
+                                <span class="text-primary">75%</span>
+                            </div>
+                            <div class="w-full bg-gray-800 h-2 rounded-full overflow-hidden">
+                                <div class="bg-primary h-full w-[75%]"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Skill Group -->
+                <div class="space-y-6">
+                    <h3 class="text-xl font-bold text-primary flex items-center">
+                        <span class="mr-2">Other Skills</span>
+                        <div class="flex-grow h-px bg-gray-800 ml-4"></div>
+                    </h3>
+                    <div class="space-y-4">
+                        <div class="skill-item">
+                            <div class="flex justify-between mb-1">
+                                <span>System Analysis</span>
+                                <span class="text-primary">85%</span>
+                            </div>
+                            <div class="w-full bg-gray-800 h-2 rounded-full overflow-hidden">
+                                <div class="bg-primary h-full w-[85%]"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="flex justify-between mb-1">
+                                <span>UI/UX Design</span>
+                                <span class="text-primary">80%</span>
+                            </div>
+                            <div class="w-full bg-gray-800 h-2 rounded-full overflow-hidden">
+                                <div class="bg-primary h-full w-[80%]"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-24 bg-surface/30">
+        <div class="container mx-auto px-6">
+            <div class="flex justify-between items-end mb-16">
+                <div>
+                    <h2 class="text-4xl font-bold mb-4">Real Projects</h2>
+                    <p class="text-gray-500">I build functional systems, not just templates.</p>
+                </div>
+                <a href="pages/projects.html" class="text-primary font-bold hover:underline flex items-center">
+                    View All <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" viewBox="0 0 20 20"
+                        fill="currentColor">
+                        <path fill-rule="evenodd"
+                            d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                            clip-rule="evenodd" />
+                    </svg>
+                </a>
+            </div>
+
+            <div id="projects-container" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Projects will be loaded dynamicall via JS -->
+                <div class="animate-pulse flex space-x-4">
+                    <div class="flex-1 space-y-4 py-1">
+                        <div class="h-64 bg-gray-800 rounded-xl"></div>
+                        <div class="h-4 bg-gray-800 rounded w-3/4"></div>
+                        <div class="h-4 bg-gray-800 rounded"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Community Section -->
+    <section id="community" class="py-24 bg-dark">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-4">Community Wall</h2>
+                <p class="text-gray-500">Share your thoughts, ask questions, or just say hi!</p>
+                <div class="w-20 h-1 bg-primary mx-auto mt-4"></div>
+            </div>
+
+            <div class="max-w-4xl mx-auto">
+                <!-- Post Message Box -->
+                <div class="glass-card p-6 rounded-2xl mb-12 border border-primary/20">
+                    <div class="flex items-start space-x-4">
+                        <img src="https://ui-avatars.com/api/?name=User&background=34d399&color=0a1a14"
+                            class="w-12 h-12 rounded-full border-2 border-primary/30">
+                        <div class="flex-grow">
+                            <textarea id="community-input" rows="3"
+                                placeholder="Waa maxay fikirkaagu? (What's on your mind?)"
+                                class="w-full bg-dark/50 border border-gray-800 rounded-xl p-4 focus:outline-none focus:border-primary transition text-gray-200"></textarea>
+                            <div class="flex flex-col sm:flex-row justify-between items-center mt-4 gap-4">
+                                <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto flex-grow">
+                                    <input type="text" id="community-name" placeholder="Magacaaga (Your Name)"
+                                        class="bg-dark/50 border border-gray-800 rounded-lg px-4 py-2 focus:outline-none focus:border-primary text-sm flex-grow">
+                                </div>
+                                <button id="post-community-btn"
+                                    class="w-full sm:w-auto px-6 py-2 bg-primary text-dark font-bold rounded-lg hover:bg-accent transition transform hover:scale-105 active:scale-95">
+                                    Post Message
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Messages Feed -->
+                <div id="community-feed" class="space-y-6">
+                    <!-- Sample Message -->
+                    <div class="glass-card p-6 rounded-2xl border border-gray-800 hover:border-primary/30 transition">
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="flex items-center space-x-3">
+                                <img src="https://ui-avatars.com/api/?name=Mustaf+Upziye&background=10b981&color=fff"
+                                    class="w-10 h-10 rounded-full border border-primary/50">
+                                <div>
+                                    <h4 class="font-bold text-primary">Mustaf Upziye <span
+                                            class="text-xs font-normal text-gray-500 ml-2">Official</span></h4>
+                                    <p class="text-[10px] text-gray-600">Admin • Maanta</p>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-gray-300 leading-relaxed mb-4">
+                            Ku soo dhawaada community-ga! Halkan waxaad ku soo bandhigi kartaan fikradihiina ama aad
+                            su'aalo ku weydiin kartaan. 🚀
+                        </p>
+                        <div class="flex items-center space-x-6 text-sm">
+                            <button
+                                class="flex items-center space-x-2 text-gray-500 hover:text-primary transition group community-like-btn">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 group-hover:fill-primary"
+                                    fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                                </svg>
+                                <span>12 Likes</span>
+                            </button>
+                            <button
+                                class="flex items-center space-x-2 text-gray-500 hover:text-primary transition community-reply-btn">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                                    stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                                </svg>
+                                <span>5 Replies</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24">
+        <div class="container mx-auto px-6">
+            <div class="glass-card rounded-3xl p-12 relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full -mr-32 -mt-32"></div>
+                <div class="absolute bottom-0 left-0 w-48 h-48 bg-secondary/5 rounded-full -ml-24 -mb-24"></div>
+
+                <div class="flex flex-col md:flex-row gap-12 relative z-10">
+                    <div class="md:w-1/2">
+                        <h2 class="text-4xl font-bold mb-6 italic">Let's build something <span
+                                class="text-primary">epic</span>.</h2>
+                        <p class="text-gray-400 mb-8 max-w-md">
+                            Available for freelance and collaborations. Send me a message and let's discuss your next
+                            big idea.
+                        </p>
+
+                        <div class="space-y-4">
+                            <div class="flex items-center space-x-4 text-gray-300">
+                                <div
+                                    class="w-10 h-10 bg-dark rounded-full flex items-center justify-center border border-gray-800 text-primary">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20"
+                                        fill="currentColor">
+                                        <path
+                                            d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+                                        <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+                                    </svg>
+                                </div>
+                                <a href="mailto:mustaphaopziye@gmail.com"
+                                    class="hover:text-primary transition">mustaphaopziye@gmail.com</a>
+                            </div>
+                            <div class="flex items-center space-x-4 text-gray-300 mt-4">
+                                <div
+                                    class="w-10 h-10 bg-dark rounded-full flex items-center justify-center border border-gray-800 text-primary">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                                    </svg>
+                                </div>
+                                <a href="https://wa.me/+252636775288" target="_blank"
+                                    class="hover:text-primary transition">+252 63 6775288</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="md:w-1/2">
+                        <form id="contact-form" action="https://formspree.io/f/xblddqze" method="POST"
+                            class="space-y-4">
+                            <div>
+                                <input type="text" name="name" placeholder="Your Name" required
+                                    class="w-full px-5 py-4 bg-dark/50 border border-gray-800 rounded-xl focus:outline-none focus:border-primary transition">
+                            </div>
+                            <div>
+                                <input type="email" name="email" placeholder="Email Address" required
+                                    class="w-full px-5 py-4 bg-dark/50 border border-gray-800 rounded-xl focus:outline-none focus:border-primary transition">
+                            </div>
+                            <div>
+                                <textarea name="message" rows="4" placeholder="Your Message" required
+                                    class="w-full px-5 py-4 bg-dark/50 border border-gray-800 rounded-xl focus:outline-none focus:border-primary transition"></textarea>
+                            </div>
+                            <button type="submit"
+                                class="w-full py-4 bg-primary text-dark font-bold rounded-xl hover:bg-accent transition shadow-lg shadow-primary/20">
+                                Send Message
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Chat Toggle -->
+    <div class="fixed bottom-6 right-6 z-[70] group">
+        <div
+            class="absolute -top-12 right-0 bg-primary text-dark px-3 py-1 rounded text-xs font-bold whitespace-nowrap opacity-0 group-hover:opacity-100 transition shadow-xl">
+            La hadal AI! (Talk to AI)
+        </div>
+        <button id="ai-chat-toggle"
+            class="w-16 h-16 bg-primary text-dark rounded-full flex items-center justify-center shadow-2xl shadow-primary/30 transform hover:scale-110 active:scale-95 transition">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+            </svg>
+        </button>
+    </div>
+
+    <!-- AI Chat Window (Hidden by default) -->
+    <div id="ai-chat-window"
+        class="fixed bottom-24 right-6 w-96 h-[500px] glass-card rounded-2xl z-[60] flex flex-col shadow-2xl hidden translate-y-10 opacity-0 transition-all duration-300 border border-primary/20">
+        <div class="p-4 border-b border-gray-800 flex justify-between items-center bg-primary/10 rounded-t-2xl">
+            <div class="flex items-center space-x-3">
+                <div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-dark">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd"
+                            d="M10 18a8 8 0 100-16 8 8 0 000 16zM7 9a1 1 0 100-2 1 1 0 000 2zm7-1a1 1 0 11-2 0 1 1 0 012 0zm-7.535 4a1 1 0 01.832.445 4.03 4.03 0 005.406 0 1 1 0 111.414 1.415 6.03 6.03 0 01-8.485 0 1 1 0 01.833-1.415z"
+                            clip-rule="evenodd" />
+                    </svg>
+                </div>
+                <div>
+                    <h4 class="font-bold text-sm">Mustaf AI Assistant</h4>
+                    <span class="text-[10px] text-primary flex items-center">
+                        <span class="w-1.5 h-1.5 bg-primary rounded-full mr-1 animate-pulse"></span> Online | Somali &
+                        English
+                    </span>
+                </div>
+            </div>
+            <button id="close-chat" class="text-gray-500 hover:text-white transition">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+
+        <div id="chat-messages" class="flex-grow p-4 overflow-y-auto space-y-4 text-sm">
+            <div
+                class="bg-surface p-3 rounded-tr-xl rounded-bl-xl rounded-br-xl max-w-[85%] border border border-gray-800">
+                Asc! Waxaan ahay kaaliyaha Mustaf. Sideen kuu caawin karaa? (I am Mustaf's assistant. How can I help
+                you?)
+            </div>
+        </div>
+
+        <div class="p-4 border-t border-gray-800">
+            <div class="flex space-x-2">
+                <input type="text" id="chat-input" placeholder="Weydii wax Mustaf ku saabsan..."
+                    class="flex-grow bg-dark/50 border border-gray-800 rounded-lg px-4 py-2 focus:outline-none focus:border-primary text-sm">
+                <button id="send-btn"
+                    class="bg-primary text-dark px-4 py-2 rounded-lg font-bold hover:bg-accent transition">
+                    Send
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="py-12 border-t border-gray-900 bg-dark">
+        <div class="container mx-auto px-6 text-center">
+            <div class="flex justify-center space-x-6 mb-8 text-gray-500">
+                <a href="https://www.facebook.com/share/17ZfEz4Pmc/" target="_blank"
+                    class="hover:text-primary transition">Facebook</a>
+                <a href="#" class="hover:text-primary transition">LinkedIn</a>
+                <a href="https://github.com/" target="_blank" class="hover:text-primary transition">GitHub</a>
+                <a href="https://wa.me/+252636775288" target="_blank" class="hover:text-primary transition">WhatsApp</a>
+            </div>
+            <p class="text-gray-600 text-sm">
+                &copy; 2026 GURRMAD CREATIVE. All rights reserved. Built with <span class="text-primary">&hearts;</span>
+                by Mustaf Upziye.
+            </p>
+        </div>
+    </footer>
+
+    <!-- Toast Notification -->
+    <div id="toast-container" class="fixed bottom-10 left-1/2 -translate-x-1/2 z-[200] space-y-4"></div>
+
+    <!-- Project Detail Modal -->
+    <div id="project-modal"
+        class="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-8 opacity-0 pointer-events-none transition-all duration-300">
+        <div id="modal-overlay" class="absolute inset-0 bg-dark/90 backdrop-blur-md"></div>
+
+        <div id="modal-content"
+            class="relative bg-surface border border-gray-800 w-full max-w-6xl max-h-[90vh] rounded-3xl overflow-hidden shadow-2xl transform scale-95 opacity-0 transition-all duration-300 flex flex-col md:flex-row">
+            <!-- Close Button -->
+            <button id="close-modal"
+                class="absolute top-6 right-6 z-10 w-12 h-12 bg-dark/50 hover:bg-primary text-white hover:text-dark rounded-full flex items-center justify-center transition-all duration-300">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+
+            <!-- Left: Gallery -->
+            <div class="md:w-3/5 bg-dark/50 flex flex-col h-full overflow-hidden">
+                <div id="modal-main-image-container"
+                    class="flex-grow flex items-center justify-center p-4 min-h-[300px]">
+                    <img id="modal-main-image" src="" alt="Project Detail"
+                        class="max-w-full max-h-full object-contain rounded-xl shadow-2xl">
+                </div>
+                <!-- Thumbnails -->
+                <div id="modal-thumbnails" class="h-24 px-4 pb-4 flex gap-2 overflow-x-auto scrollbar-hide">
+                    <!-- Dynamic thumbs -->
+                </div>
+            </div>
+
+            <!-- Right: Info -->
+            <div class="md:w-2/5 p-8 md:p-12 overflow-y-auto bg-surface custom-scrollbar">
+                <div id="modal-tag"
+                    class="inline-block px-3 py-1 bg-primary/10 text-primary text-xs font-bold rounded-full uppercase tracking-widest mb-4">
+                    Web System</div>
+                <h2 id="modal-title" class="text-4xl font-bold mb-6">Project Title</h2>
+
+                <div class="space-y-8">
+                    <!-- English Section -->
+                    <div>
+                        <h4 class="text-sm font-bold text-gray-500 uppercase tracking-widest mb-3 flex items-center">
+                            <span class="w-8 h-px bg-gray-800 mr-3"></span> Description (EN)
+                        </h4>
+                        <p id="modal-desc-en" class="text-gray-300 leading-relaxed">English description goes here...</p>
+                    </div>
+
+                    <!-- Somali Section -->
+                    <div class="p-6 bg-primary/5 rounded-2xl border border-primary/10">
+                        <h4 class="text-sm font-bold text-primary uppercase tracking-widest mb-3 flex items-center">
+                            <span class="w-8 h-px bg-primary/20 mr-3"></span> Faahfaahin (SO)
+                        </h4>
+                        <p id="modal-desc-so" class="text-gray-400 leading-relaxed italic">Faahfaahinta oo af-soomaali
+                            ah...</p>
+                    </div>
+
+                    <!-- Features -->
+                    <div>
+                        <h4 class="text-sm font-bold text-gray-500 uppercase tracking-widest mb-4 flex items-center">
+                            <span class="w-8 h-px bg-gray-800 mr-3"></span> Key Features
+                        </h4>
+                        <ul id="modal-features" class="grid grid-cols-1 gap-3">
+                            <!-- Dynamic features -->
+                        </ul>
+                    </div>
+
+                    <!-- Tech Stack -->
+                    <div>
+                        <h4 class="text-sm font-bold text-gray-500 uppercase tracking-widest mb-4 flex items-center">
+                            <span class="w-8 h-px bg-gray-800 mr-3"></span> Technologies
+                        </h4>
+                        <div id="modal-tech" class="flex flex-wrap gap-2">
+                            <!-- Dynamic tech -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="assets/js/main.js" type="module"></script>
+</body>
+
+</html>

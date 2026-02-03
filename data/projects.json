@@ -1,0 +1,143 @@
+[
+  {
+    "id": "al-baraka-pos",
+    "title": "Al Baraka Enterprise POS",
+    "type": "Full-Stack Web Solution",
+    "tag": "Production Ready",
+    "description": "A high-performance Point of Sale system designed to scale restaurant operations with real-time analytics and seamless order management.",
+    "description_en": "Al Baraka Enterprise POS is a high-performance solution engineered for modern hospitality businesses. It solves the critical challenge of manual order tracking by providing a seamless digital menu, automated table assignments, and instant cloud-synced receipts. Designed for speed and reliability, it eliminates operational bottlenecks and enhances the customer experience on any device.",
+    "description_so": "Al Baraka Enterprise POS waa xal waxqabad sare leh oo loogu talagalay ganacsiyada casriga ah ee adeegga cuntada. Waxay xallisaa caqabadda daba-galka dalbashada gacanta iyadoo bixisa menu digital ah oo aan kala go' lahayn, qoondeynta miiska ee otomaatiga ah, iyo rasiidhada daruuraha ku xiran. Waxaa loogu talagalay xawaare iyo laysku hallayn karo, waxay meesha ka saaraysaa cidhiidhiga hawlgalka waxayna hagaajinaysaa khibradda macmiilka qalab kasta.",
+    "tech": [
+      "Tailwind CSS",
+      "JavaScript ES6+",
+      "Cloud Integration",
+      "Responsive UI"
+    ],
+    "image": "assets/images/albaraka/Screenshot 2026-01-31 211010.png",
+    "gallery": [
+      "assets/images/albaraka/Screenshot 2026-01-31 211010.png",
+      "assets/images/albaraka/Screenshot 2026-01-31 211334.png",
+      "assets/images/albaraka/Screenshot 2026-01-31 211350.png",
+      "assets/images/albaraka/Screenshot 2026-01-31 211406.png",
+      "assets/images/albaraka/Screenshot 2026-01-31 211424.png",
+      "assets/images/albaraka/Screenshot 2026-01-31 211525.png",
+      "assets/images/albaraka/Screenshot 2026-01-31 211605.png",
+      "assets/images/albaraka/Screenshot 2026-01-31 211639.png",
+      "assets/images/albaraka/Screenshot 2026-01-31 211652.png",
+      "assets/images/albaraka/Screenshot 2026-01-31 211734.png",
+      "assets/images/albaraka/Screenshot 2026-01-31 211754.png"
+    ],
+    "features_en": [
+      "Real-time Order Processing",
+      "Advanced Inventory Synchronization",
+      "Multi-device Cloud Dashboard",
+      "Enterprise Receipt Management",
+      "Table Analytics & Reporting"
+    ],
+    "features_so": [
+      "Habaynta Dalbashada ee Waqtiga-dhabta ah",
+      "Isku-dubbaridka Kaydka ee Sareeya",
+      "Dashboard-ka Daruuraha ee Aalado badan",
+      "Maamulka Rasiidka Shirkadda",
+      "Falanqaynta Miiska iyo Warbixinta"
+    ],
+    "isComplete": true
+  },
+  {
+    "id": "gurrmad-inventory",
+    "title": "GURRMAD Smart Inventory",
+    "type": "Enterprise Resource Planning",
+    "tag": "AI Intelligence",
+    "description": "An intelligent inventory management system that uses AI to predict stock shortages and monitor expiry dates across multiple warehouses.",
+    "description_en": "GURRMAD Smart Inventory is more than just a tracking tool; it's a strategic asset for retail and warehouse management. By integrating AI-driven alerts for expiry dates and automated restock suggestions, it helps businesses minimize waste and maximize profitability. The system supports multi-user roles with detailed audit trails for every transaction.",
+    "description_so": "GURRMAD Smart Inventory wuxuu ka badan yahay kaliya aalad daba-gal; waa hanti istiraatiiji u ah maamulka tafaariiqda iyo bakhaarada. Marka la isku daro digniinaha AI-ga ee ku saabsan taariikhaha dhicitaanka iyo soo jeedinta otomaatiga ah ee dib-u-buuxinta, waxay ka caawisaa ganacsiyada inay yareeyaan qashinka oo ay kor u qaadaan macaashka. Nidaamku wuxuu taageeraa doorarka isticmaalayaasha badan ee leh raad-raacyo hantidhawr oo faahfaahsan.",
+    "tech": [
+      "Interactive JS",
+      "Supabase DB",
+      "AI Notification Engine",
+      "Data Analytics"
+    ],
+    "image": "assets/images/gurmad/Screenshot 2026-02-02 192257.png",
+    "gallery": [
+      "assets/images/gurmad/Screenshot 2026-02-02 192257.png",
+      "assets/images/gurmad/Screenshot 2026-02-02 193205.png"
+    ],
+    "features_en": [
+      "AI Expiry Date Monitoring",
+      "Smart Redistribution Alerts",
+      "Multi-Warehouse Support",
+      "Inventory Audit Control",
+      "Predictive Stock Analytics"
+    ],
+    "features_so": [
+      "Kormeerka Taariikhda Dhicitaanka ee AI",
+      "Digniinaha Dib-u-qaybinta ee Caqliga leh",
+      "Taageerada Bakhaaro Badan",
+      "Xakamaynta Hantidhawrka Kaydka",
+      "Falanqaynta Kaydka ee Saadaalinta ah"
+    ],
+    "isComplete": true
+  },
+  {
+    "id": "chat-app",
+    "title": "Glassmorphism Connect",
+    "type": "Modern Communication Platform",
+    "tag": "Creative UI",
+    "description": "A high-end communication interface built with a focus on modern aesthetics and real-time user experiences.",
+    "description_en": "Glassmorphism Connect demonstrates the peak of modern web design combined with real-time functionality. It provides a fluid, high-conversion communication platform that can be integrated into any business ecosystem to enhance customer interaction and team collaboration.",
+    "description_so": "Glassmorphism Connect wuxuu muujinayaa halka ugu sarreysa ee naqshadeynta webka ee casriga ah oo lagu daray shaqada waqtiga-dhabta ah. Waxay bixisaa bar-isgaarsiineed oo dareere ah, oo leh beddelaad sare taasoo lala midoobi karo nidaam kasta oo ganacsi si loo hagaajiyo isdhexgalka macaamiisha iyo iskaashiga kooxda.",
+    "tech": [
+      "Tailwind UI",
+      "Real-time Sync",
+      "Glassmorphism Design",
+      "User Authentication"
+    ],
+    "image": "https://images.unsplash.com/photo-1611746872915-64382b5c76da?auto=format&fit=crop&q=80&w=800",
+    "features_en": [
+      "Glassmorphism UI/UX",
+      "Instant Message Delivery",
+      "Secure User Sessions",
+      "Custom Theme Profiles",
+      "Attachment Support"
+    ],
+    "features_so": [
+      "Muuqaalka Glassmorphism UI/UX",
+      "Gudbinta Fariinta degdega ah",
+      "Kalfadhiyada Isticmaalaha ee Sugan",
+      "Muuqaalada Mawduucaga loo habeeyay",
+      "Taageerada Lifaaqyada"
+    ],
+    "isComplete": true
+  },
+  {
+    "id": "business-system",
+    "title": "Strategic Operations Suite",
+    "type": "Desktop ERP Solution",
+    "tag": "Mission Critical",
+    "description": "A robust desktop system designed for reliability and heavy-duty data processing in professional environments.",
+    "description_en": "The Strategic Operations Suite is a mission-critical desktop application for enterprises requiring offline-first reliability and heavy-duty data processing. Built with C# and SQL Server, it offers a secure environment for financial tracking, reporting, and operational management with industrial-grade security.",
+    "description_so": "Strategic Operations Suite waa codsi desktop oo muhiim u ah shirkadaha u baahan laysku hallayn karo oo hore-u-leh iyo habaynta xogta culus. Waxaa lagu dhisay C# iyo SQL Server, waxay bixisaa jawi sugan oo loogu talagalay dabagalka maaliyadda, warbixinta, iyo maamulka hawlgalka oo leh amni heerka warshadaha ah.",
+    "tech": [
+      "C# Enterprise",
+      "SQL Server PRO",
+      "Reporting Engine",
+      "Admin Controls"
+    ],
+    "image": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800",
+    "features_en": [
+      "Professional CRUD Engine",
+      "Automated Financial Reports",
+      "Industrial-grade Security",
+      "Offline Data Continuity",
+      "Relational Database Logic"
+    ],
+    "features_so": [
+      "Matoorka Professional CRUD",
+      "Warbixinnada Maaliyadeed ee Otomaatiga ah",
+      "Amin Heerka Warshadaha ah",
+      "Joogteynta Xogta ee Offline-ka",
+      "Macquulka Database-ka Xiriirka ah"
+    ],
+    "isComplete": true
+  }
+]

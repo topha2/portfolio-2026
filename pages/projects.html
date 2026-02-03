@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Projects | Mustaf Upziye</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#10b981',
+                        dark: '#0a1a14',
+                        surface: '#12261f',
+                    },
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <style>
+        .modal-active {
+            overflow: hidden;
+        }
+
+        #project-modal {
+            transition: all 0.3s ease-out;
+        }
+
+        .modal-show {
+            opacity: 1 !important;
+            pointer-events: auto !important;
+        }
+
+        .modal-content-show {
+            transform: scale(1) !important;
+            opacity: 1 !important;
+        }
+
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+
+        #toast-container {
+            pointer-events: none;
+        }
+
+        .toast-show {
+            transform: translateY(0) !important;
+            opacity: 1 !important;
+        }
+    </style>
+</head>
+
+<body class="bg-dark text-gray-100 font-sans">
+    <nav class="container mx-auto px-6 py-8 flex justify-between items-center">
+        <a href="../index.html" class="flex items-center space-x-2">
+            <div class="w-8 h-8 bg-primary flex items-center justify-center rounded-lg">
+                <span class="text-dark font-bold">M</span>
+            </div>
+            <span class="font-bold">Mustaf <span class="text-primary italic">Upziye</span></span>
+        </a>
+        <a href="../index.html" class="text-gray-400 hover:text-white transition flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd"
+                    d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z"
+                    clip-rule="evenodd" />
+            </svg>
+            Back Home
+        </a>
+    </nav>
+
+    <header class="py-16 text-center">
+        <h1 class="text-5xl font-bold mb-4">Real-World <span class="text-primary">Systems</span></h1>
+        <p class="text-gray-500 max-w-2xl mx-auto">A collection of full-scale applications built to solve genuine
+            business and educational challenges.</p>
+    </header>
+
+    <main class="container mx-auto px-6 pb-24">
+        <div id="all-projects-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Projects loaded via JS -->
+        </div>
+    </main>
+
+    <!-- Toast Notification -->
+    <div id="toast-container" class="fixed bottom-10 left-1/2 -translate-x-1/2 z-[200] space-y-4"></div>
+
+    <!-- Project Detail Modal -->
+    <div id="project-modal"
+        class="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-8 opacity-0 pointer-events-none transition-all duration-300">
+        <div id="modal-overlay" class="absolute inset-0 bg-dark/90 backdrop-blur-md"></div>
+        <div id="modal-content"
+            class="relative bg-surface border border-gray-800 w-full max-w-6xl max-h-[90vh] rounded-3xl overflow-hidden shadow-2xl transform scale-95 opacity-0 transition-all duration-300 flex flex-col md:flex-row">
+            <button id="close-modal"
+                class="absolute top-6 right-6 z-10 w-12 h-12 bg-dark/50 hover:bg-primary text-white hover:text-dark rounded-full flex items-center justify-center transition-all duration-300">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+            <div class="md:w-3/5 bg-dark/50 flex flex-col h-full overflow-hidden">
+                <div class="flex-grow flex items-center justify-center p-4 min-h-[300px]">
+                    <img id="modal-main-image" src="" alt="Project Detail"
+                        class="max-w-full max-h-full object-contain rounded-xl shadow-2xl">
+                </div>
+                <div id="modal-thumbnails" class="h-24 px-4 pb-4 flex gap-2 overflow-x-auto scrollbar-hide"></div>
+            </div>
+            <div class="md:w-2/5 p-8 md:p-12 overflow-y-auto bg-surface">
+                <div id="modal-tag"
+                    class="inline-block px-3 py-1 bg-primary/10 text-primary text-xs font-bold rounded-full uppercase tracking-widest mb-4">
+                    Web System</div>
+                <h2 id="modal-title" class="text-4xl font-bold mb-6">Project Title</h2>
+                <div class="space-y-8">
+                    <div>
+                        <h4 class="text-sm font-bold text-gray-500 uppercase tracking-widest mb-3 flex items-center">
+                            <span class="w-8 h-px bg-gray-800 mr-3"></span> Description (EN)
+                        </h4>
+                        <p id="modal-desc-en" class="text-gray-300 leading-relaxed"></p>
+                    </div>
+                    <div class="p-6 bg-primary/5 rounded-2xl border border-primary/10">
+                        <h4 class="text-sm font-bold text-primary uppercase tracking-widest mb-3 flex items-center">
+                            <span class="w-8 h-px bg-primary/20 mr-3"></span> Faahfaahin (SO)
+                        </h4>
+                        <p id="modal-desc-so" class="text-gray-400 leading-relaxed italic"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        let projectsData = [];
+
+        const loadAllProjects = async () => {
+            const container = document.getElementById('all-projects-container');
+            const response = await fetch('../data/projects.json');
+            projectsData = await response.json();
+
+            container.innerHTML = projectsData.map(project => `
+                <div class="bg-surface/40 rounded-2xl overflow-hidden border border-gray-800 hover:border-primary/50 transition group">
+                    <div class="h-48 overflow-hidden relative">
+                        <img src="../${project.image}" alt="${project.title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.src='https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&q=80&w=800'">
+                        <div class="absolute top-3 left-3">
+                            <span class="px-2 py-0.5 bg-primary text-dark text-[10px] font-bold rounded uppercase">${project.tag}</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 text-primary transition">${project.title}</h3>
+                        <p class="text-gray-500 text-sm mb-4 line-clamp-3">${project.description}</p>
+                        <div class="flex flex-wrap gap-1.5 mb-6">
+                            ${project.tech.map(t => `<span class="text-[9px] px-1.5 py-0.5 bg-dark border border-gray-800 rounded text-gray-400">${t}</span>`).join('')}
+                        </div>
+                        <button onclick="handleDetailClick('${project.id}')" class="w-full py-2 bg-dark border border-gray-800 rounded-lg text-sm font-bold hover:bg-primary hover:text-dark transition">View Details</button>
+                    </div>
+                </div>
+            `).join('');
+        };
+
+        const initModal = () => {
+            const modal = document.getElementById('project-modal');
+            const content = document.getElementById('modal-content');
+            const closeBtn = document.getElementById('close-modal');
+            const overlay = document.getElementById('modal-overlay');
+
+            const showToast = (message) => {
+                const container = document.getElementById('toast-container');
+                const toast = document.createElement('div');
+                toast.className = 'bg-primary text-dark px-8 py-4 rounded-2xl font-bold shadow-2xl transform translate-y-10 opacity-0 transition-all duration-500 flex items-center space-x-3 border border-white/20';
+                toast.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <span>${message}</span>
+                `;
+                container.appendChild(toast);
+                setTimeout(() => toast.classList.add('toast-show'), 10);
+                setTimeout(() => {
+                    toast.classList.remove('toast-show');
+                    setTimeout(() => toast.remove(), 500);
+                }, 3000);
+            };
+
+            const close = () => {
+                content.classList.remove('modal-content-show');
+                modal.classList.remove('modal-show');
+                setTimeout(() => {
+                    modal.classList.add('pointer-events-none');
+                    document.body.classList.remove('modal-active');
+                }, 300);
+            };
+
+            closeBtn.addEventListener('click', close);
+            overlay.addEventListener('click', close);
+
+            window.handleDetailClick = (id) => {
+                const project = projectsData.find(p => p.id === id);
+                if (project && project.id === 'al-baraka-pos') {
+                    document.getElementById('modal-title').innerText = project.title;
+                    document.getElementById('modal-tag').innerText = project.tag;
+                    document.getElementById('modal-desc-en').innerText = project.description_en;
+                    document.getElementById('modal-desc-so').innerText = project.description_so;
+                    document.getElementById('modal-main-image').src = '../' + project.image;
+
+                    const thumbContainer = document.getElementById('modal-thumbnails');
+                    if (project.gallery && project.gallery.length > 0) {
+                        thumbContainer.innerHTML = project.gallery.map(img => `
+                            <img src="../${img}" class="h-full w-20 object-cover rounded-lg border border-gray-800 cursor-pointer hover:border-primary transition" 
+                                 onclick="document.getElementById('modal-main-image').src = '../${img}'">
+                        `).join('');
+                    } else {
+                        thumbContainer.innerHTML = '';
+                    }
+
+                    document.body.classList.add('modal-active');
+                    modal.classList.remove('pointer-events-none');
+                    modal.classList.add('modal-show');
+                    setTimeout(() => content.classList.add('modal-content-show'), 10);
+                } else {
+                    showToast('🚀 Coming Soon! | Dhawaan ka filo!');
+                }
+            };
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadAllProjects();
+            initModal();
+        });
+    </script>
+</body>
+
+</html>
