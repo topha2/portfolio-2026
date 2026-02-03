@@ -1,0 +1,21 @@
+{
+  "name": "portfolio-2026",
+  "version": "1.0.0",
+  "description": "A premium, high-performance portfolio showcasing full-scale software systems and technical expertise.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/topha2/portfolio-2026.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/topha2/portfolio-2026/issues"
+  },
+  "homepage": "https://github.com/topha2/portfolio-2026#readme"
+}
