@@ -33,8 +33,9 @@ exports.handler = async (event, context) => {
         User Question: "${message}"`;
 
         // 5. Call API using native fetch (No external dependencies)
+        // Switch to 'gemini-pro' which is the most stable standard model to avoid 404 errors
         const response = await fetch(
-            `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`,
+            `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`,
             {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
