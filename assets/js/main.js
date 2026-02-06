@@ -5,7 +5,7 @@ const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
 const supabase = (typeof window.supabase !== 'undefined') ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
 
 // Gemini Configuration
-const GEMINI_API_KEY = "AIzaSyCFY0yIdEvH36ZZ0XU33l9jyQSz6Y1Irz0";
+// Gemini Configuration managed via Netlify Environment Variables
 
 // Global project data
 let projectsData = [];
@@ -257,7 +257,7 @@ const initAIChat = () => {
 
         try {
             console.log('Fetching AI response...');
-            const response = await fetch('/.netlify/functions/ai-agent', {
+            const response = await fetch('/.netlify/functions/chat', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ message: query })
