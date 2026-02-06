@@ -34,8 +34,20 @@ exports.handler = async (event, context) => {
         If asked in English, answer in English.
         User Question: "${message}"`;
 
+        // 5. STATIC FALLBACK RESPONSE (API Bypass)
+        // Since the API is facing issues, we return a direct response as requested.
+        const botReply = "Asc! Anigu waxaan ahay Mustaf AI. Waan ka xumahay, adeegga AI-gu hadda wuu xaniban yahay dayactir awgiis. Fadlan Mustaf toos ula xiriir haddii aad su'aal qabto.\n\nHello! I am Mustaf AI. I apologize, but the AI service is currently blocked for maintenance. Please contact Mustaf directly if you have any questions.";
+
+        return {
+            statusCode: 200,
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ reply: botReply })
+        };
+
+        /* 
+        // TEMPORARILY DISABLED API CALL
         // 5. Call API using native fetch
-        // ✅ Corrected: Using 'gemini-1.5-flash' which is the standard reliable model
+        // Corrected: Using 'gemini-1.5-flash' which is the standard reliable model
         const response = await fetch(
             `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${apiKey}`,
             {
@@ -68,6 +80,7 @@ exports.handler = async (event, context) => {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ reply })
         };
+        */
 
     } catch (error) {
         console.error('Function Error:', error);
