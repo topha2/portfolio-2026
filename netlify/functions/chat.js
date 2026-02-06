@@ -17,6 +17,8 @@ exports.handler = async (event, context) => {
         const { message } = JSON.parse(event.body);
 
         // 3. Check configuration
+        const apiKey = process.env.GEMINI_API_KEY ? process.env.GEMINI_API_KEY.trim() : null;
+
         if (!apiKey) {
             console.error('SERVER ERROR: GEMINI_API_KEY is missing.');
             return {
@@ -33,10 +35,9 @@ exports.handler = async (event, context) => {
         User Question: "${message}"`;
 
         // 5. Call API using native fetch (No external dependencies)
-        // Reverting to gemini-1.5-flash as it is the most efficient standard model. 
-        // 429 error means the key works but 2.0 is rate-limited. 1.5 Flash has higher limits.
+        // Switch to 'gemini-pro' (Stable v1.0) - The most reliable alias that rarely 404s.
         const response = await fetch(
-            `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`,
+            `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${apiKey}`,
             {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
