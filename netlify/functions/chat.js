@@ -1,76 +1,76 @@
 
 
-const { GoogleGenerativeAI } = require("@google/generative-ai");
-require('dotenv').config();
+const apiKey = process.env.GEMINI_API_KEY;
 
 exports.handler = async (event, context) => {
     // 1. Only allow POST requests
     if (event.httpMethod !== 'POST') {
-        return {
-            statusCode: 405,
-            body: JSON.stringify({ error: 'Method Not Allowed' }),
-            headers: { 'Allow': 'POST' }
-        };
+        return { statusCode: 405, body: 'Method Not Allowed' };
     }
 
     try {
-        // 2. Parse the incoming body
+        // 2. Parse Body
         if (!event.body) {
-            return { statusCode: 400, body: JSON.stringify({ error: 'Missing request body' }) };
+            return { statusCode: 400, body: JSON.stringify({ error: 'No request body' }) };
         }
 
         const { message } = JSON.parse(event.body);
 
-        if (!message) {
-            return { statusCode: 400, body: JSON.stringify({ error: 'Message field is required' }) };
-        }
-
-        // 3. Get API Key from Environment Variables
-        const apiKey = process.env.GEMINI_API_KEY;
+        // 3. Check configuration
         if (!apiKey) {
-            console.error('SERVER ERROR: GEMINI_API_KEY is missing in Netlify environment variables.');
+            console.error('SERVER ERROR: GEMINI_API_KEY is missing.');
             return {
                 statusCode: 500,
-                body: JSON.stringify({ error: 'Internal Server Configuration Error' })
+                body: JSON.stringify({ error: 'Server configuration missing' })
             };
         }
 
-        // 4. Initialize Google Gemini API
-        const genAI = new GoogleGenerativeAI(apiKey);
-        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-
-        // 5. Define the System Prompt
-        const systemPrompt = `You are the Official AI Assistant of Mustaf Upziye, a senior software developer and ICT specialist.
-        
-        Your Goal: Answer questions about Mustaf's portfolio, skills, and projects based on the user's input.
-        Tone: Professional, friendly, and concise.
-        
-        Rules:
-        1. Language: Reply in Somali if the user asks in Somali. Reply in English if the user asks in English.
-        2. Content: Focus ONLY on Mustaf's professional life, skills, and projects.
-        3. Identity: Always stay in character as his assistant.
-        
+        // 4. Construct Prompt
+        const systemPrompt = `You are the Official AI Assistant of Mustaf Upziye.
+        Answer strictly about his portfolio, skills, and projects.
+        If asked in Somali, answer in Somali.
+        If asked in English, answer in English.
         User Question: "${message}"`;
 
-        // 6. Generate Content
-        const result = await model.generateContent(systemPrompt);
-        const response = await result.response;
-        const botReply = response.text();
+        // 5. Call API using native fetch (No external dependencies)
+        const response = await fetch(
+            `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`,
+            {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    contents: [{
+                        parts: [{ text: systemPrompt }]
+                    }]
+                })
+            }
+        );
 
-        // 7. Return Success Response
+        const data = await response.json();
+
+        // 6. Handle API Errors
+        if (!response.ok) {
+            console.error('Gemini API Error:', JSON.stringify(data));
+            return {
+                statusCode: response.status,
+                body: JSON.stringify({ error: 'AI Service Error', details: data })
+            };
+        }
+
+        // 7. Extract Text
+        const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || "No response generated.";
+
         return {
             statusCode: 200,
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ reply: botReply })
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ reply })
         };
 
     } catch (error) {
-        console.error('Lambda Function Error:', error);
+        console.error('Function Error:', error);
         return {
             statusCode: 500,
-            body: JSON.stringify({ error: 'Internal Server Error', message: error.message })
+            body: JSON.stringify({ error: 'Internal Function Error', message: error.message })
         };
     }
 };
